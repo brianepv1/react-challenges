@@ -1,15 +1,17 @@
 
-import { useState } from 'react';
+import { useState, useDefect } from 'react';
 import { API } from './api/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-
+import ModalDialog from './components/ModalDialog';
 import NoteComponent from './components/NoteComponent';
 
 
 function App() {
 	//State to control the render from the API
 	const [notesState, setNotesState] = useState( () => API.notes.list());
+	const [showModal, setShowModal] = useState(false);
+	const [draftNote, setDraftNote] = useState([]);
 	
 	const handleArchiveButton = (id) => {
 		/**
@@ -38,15 +40,51 @@ function App() {
 
 	
 
+	const handleShowModal = () => setShowModal(true);
+	const handleCloseModal = () => setShowModal(false);
+
+	/**
+	 * 
+	 * @param {string} id 
+	 * @returns the value if exist in the noteState
+	 */
+	const findNoteById = (id) => {
+		//Obtenemos el valor desde el componente, y lo buscamos en nuetro array,
+		//Si existe con la funcion find, nos devolvera ese valor
+		return notesState.find( (element) => {
+			return element.id == id
+		})
+	}
+
+	const handleEdit = (id) => {
+		handleShowModal();
+		console.log(findNoteById(id));
+		setDraftNote(draftNote => ({
+			...draftNote, 
+			id,
+		}));
+		///if(findNoteById(id) != undefined) setDraftNote(draftNote => [...draftNote, findNoteById(id)]);
+		console.log(draftNote)
+	}
+
+	const handleNoteChange = (formInputChanged, valueInputChanged) =>{
+		setDraftNote(() => ({
+			...draft,
+			[field]: valueInputChanged,
+		}))
+	}
+	
 	return (
 		<main>
 			<h2>Notes App</h2>
-			<Button variant="primary">Create note</Button>
+			<Button onClick={handleShowModal} variant="primary">Create note</Button>
 			<div className='mainContainer'>
 					{notesState.map( noteItem => {
 						return <NoteComponent 
 							onArchive={handleArchiveButton}
-							onDeleteConfirmation={handleDeleteButton}
+							onDelete={handleDeleteButton}
+							onEdit={handleEdit}
+							onChange={handleNoteChange}
 							key={noteItem.id}
 							id={noteItem.id}
 							title={noteItem.title}
@@ -56,6 +94,14 @@ function App() {
 						/>;
 					})}
 			</div>
+
+			<ModalDialog 
+				show={showModal}
+				onClose={handleCloseModal}
+				
+
+			/>
+
 		</main>
 	)
 }

@@ -16,11 +16,11 @@ const ModalMessage = ({message, titleItem}) => {
 		
 	</>;
 }
-const ModalDialog = ({headerTitle,messageBody, show, onCloseModal, titleNote, onConfirmationDelete}) => {
+const ModalDialog = ({id, title, date, archived, content,messageBody, show, titleNote, onClose}) => {
 	return(
-		<Modal show={show} onHide={onCloseModal}>
+		<Modal show={show} onHide={onClose}>
 			<Modal.Header closeButton>
-				<Modal.Title>{headerTitle}</Modal.Title>
+				<Modal.Title>{title}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body> 
 				{(messageBody != undefined)
@@ -30,10 +30,10 @@ const ModalDialog = ({headerTitle,messageBody, show, onCloseModal, titleNote, on
 			</Modal.Body>
 
 				<Modal.Footer>
-					<Button variant="secondary" onClick={onCloseModal}>
+					<Button variant="secondary" onClick={onClose}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={onConfirmationDelete}>
+					<Button variant="primary">
 						Save Changes
 					</Button>
 			</Modal.Footer>
@@ -44,8 +44,7 @@ const ModalDialog = ({headerTitle,messageBody, show, onCloseModal, titleNote, on
 ModalDialog.prototype = {
 	headerTitle: PropTypes.string,
 	show: PropTypes.func, 
-	onCloseModal: PropTypes.func, 
-	onConfirmationDelete: PropTypes.func,
+	onClose: PropTypes.func, 
 	titleNote: PropTypes.string, 
 }
 

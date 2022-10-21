@@ -8,39 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ModalDialog from './ModalDialog';
 
-const NoteComponent = ({id, title, date, archived, content, onArchive, onDeleteConfirmation}) =>{
-	//State for modal dialog, default state in false
-	const [showModal, setShowModal] = useState(false);
-	//State to receive the confirmation of the modal
-	const [confirmationDelete, setconfirmationDelete] = useState(false);
-	const [nameModal, setNameModal] = useState("");
-	const [haveTextBody, setNahaveTextBodymeModal] = useState("");
-
-	const handleShowModal = (headerTitle, messageBody) => {
-		setNameModal(headerTitle);
-		setShowModal(true);
-		console.log(messageBody)
-		if(messageBody != ""){
-			setNahaveTextBodymeModal(messageBody);
-		}
-
-	};
-
-	const handleCloseModal = () => setShowModal(false);
-
-	//useEffect can work as a trigger so if the confirmationDelete change, 
-	//this will update the view and delete the note
-	useEffect(() => {
-		//If confirmationDelete change to true, this mean that te confirmatoin was done.
-		//So if that happen, we use the handleDeleteButton function to update the view
-		(confirmationDelete == true) && onDeleteConfirmation(id)
-	}, [confirmationDelete]);
-
-
-	const handleConfirmationDelete = () => {
-		setconfirmationDelete(true);
-		setShowModal(false)
-	};
+const NoteComponent = ({id, title, date, archived, content, onArchive, onEdit, onDelete}) =>{
+	
 	
 	return (
 		<>
@@ -62,19 +31,16 @@ const NoteComponent = ({id, title, date, archived, content, onArchive, onDeleteC
 							<Button onClick={() => onArchive(id)} variant="primary">Archive {String(archived)}</Button>
 						</Col>
 						<Col>
-							<Button onClick={() => handleShowModal("Edit Note")} variant="warning">Edit</Button>
+							<Button onClick={() => onEdit(id)}variant="warning">Edit</Button>
 						</Col>
 						<Col>
-							<Button onClick={() => handleShowModal(
-								"Delete Confirmation", 
-								`Do you really want to delete this note?`)
-							} variant="danger">Delete</Button>
+							<Button onClick={ ()=> onDelete(id)} variant="danger">Delete</Button>
 						</Col>
 					</Row>
 				</Container>
 			</Card>
 
-			<ModalDialog headerTitle={nameModal} messageBody={haveTextBody} show={showModal} onCloseModal={handleCloseModal} onConfirmationDelete={handleConfirmationDelete} titleNote={title}/>
+
 		</>
 		
 	)
