@@ -10,7 +10,9 @@ const NoteGeneralView = ({id, title, date, archived, content}) => {
 			</Form.Group>
 			<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 				<Form.Label>Content textarea</Form.Label>
-				<Form.Control value={content} as="textarea" rows={3} />
+				{console.log(title)}
+				{console.log(content)}
+				<Form.Control value={content}as="textarea" rows={3} />
 			</Form.Group>
 		</Form>
 	);

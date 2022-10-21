@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import ModalDialog from './components/ModalDialog';
 import NoteComponent from './components/NoteComponent';
+import { useEffect } from 'react';
 
 
 function App() {
@@ -12,6 +13,9 @@ function App() {
 	const [notesState, setNotesState] = useState( () => API.notes.list());
 	const [showModal, setShowModal] = useState(false);
 	const [draftNote, setDraftNote] = useState([]);
+	const [formIdValueForm , setFormIdValueForm] = useState("");
+	const [formTitleValueForm, setFormTitleValueForm ] = useState("");
+	const [formContentValueForm, setFormContentValueForm] = useState("");
 	
 	const handleArchiveButton = (id) => {
 		/**
@@ -38,8 +42,6 @@ function App() {
 		setNotesState((notesState) => notesState.filter( (note) => note.id != id))
 	}
 
-	
-
 	const handleShowModal = () => setShowModal(true);
 	const handleCloseModal = () => setShowModal(false);
 
@@ -58,13 +60,13 @@ function App() {
 
 	const handleEdit = (id) => {
 		handleShowModal();
-		console.log(findNoteById(id));
-		setDraftNote(draftNote => ({
-			...draftNote, 
-			id,
-		}));
-		///if(findNoteById(id) != undefined) setDraftNote(draftNote => [...draftNote, findNoteById(id)]);
-		console.log(draftNote)
+		console.log(findNoteById(id).content);
+		let idNote = findNoteById(id).id;
+		let titleNote = findNoteById(id).title;
+		let contentNote = findNoteById(id).content;
+		setFormIdValueForm(idNote);
+		setFormTitleValueForm(titleNote);
+		setFormContentValueForm(contentNote);
 	}
 
 	const handleNoteChange = (formInputChanged, valueInputChanged) =>{
@@ -98,7 +100,9 @@ function App() {
 			<ModalDialog 
 				show={showModal}
 				onClose={handleCloseModal}
-				
+				id={formIdValueForm}
+				title={formTitleValueForm}
+				content={formContentValueForm}
 
 			/>
 

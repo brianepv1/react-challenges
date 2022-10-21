@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import NoteGeneralView from './NoteGeneralView';
@@ -16,7 +17,12 @@ const ModalMessage = ({message, titleItem}) => {
 		
 	</>;
 }
-const ModalDialog = ({id, title, date, archived, content,messageBody, show, titleNote, onClose}) => {
+const ModalDialog = ({id, title, date, archived, content, messageBody, show, titleNote, onClose}) => {
+	const [formValues, setFormValues] = useState({val: "", content: ""});
+
+	const handleSubmit = () => {
+		console.log(this.state.val);
+	};
 	return(
 		<Modal show={show} onHide={onClose}>
 			<Modal.Header closeButton>
@@ -25,7 +31,7 @@ const ModalDialog = ({id, title, date, archived, content,messageBody, show, titl
 			<Modal.Body> 
 				{(messageBody != undefined)
 					? <ModalMessage message={messageBody} titleItem={titleNote}/>
-					: <NoteGeneralView />
+					: <NoteGeneralView title={title} content={content}/>
 				} 
 			</Modal.Body>
 
@@ -33,7 +39,7 @@ const ModalDialog = ({id, title, date, archived, content,messageBody, show, titl
 					<Button variant="secondary" onClick={onClose}>
 						Close
 					</Button>
-					<Button variant="primary">
+					<Button onClick={handleSubmit} variant="primary">
 						Save Changes
 					</Button>
 			</Modal.Footer>
