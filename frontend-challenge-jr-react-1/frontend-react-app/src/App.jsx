@@ -1,11 +1,10 @@
 
-import { useState, useDefect } from 'react';
+import { useState, useDefect, useRef } from 'react';
 import { API } from './api/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import ModalDialog from './components/ModalDialog';
 import NoteComponent from './components/NoteComponent';
-import { useEffect } from 'react';
 
 
 function App() {
@@ -16,6 +15,8 @@ function App() {
 	const [formIdValueForm , setFormIdValueForm] = useState("");
 	const [formTitleValueForm, setFormTitleValueForm ] = useState("");
 	const [formContentValueForm, setFormContentValueForm] = useState("");
+
+	const inputTitleRef = useRef();
 	
 	const handleArchiveButton = (id) => {
 		/**
@@ -58,6 +59,18 @@ function App() {
 		})
 	}
 
+	const resetState = () => {
+		setFormIdValueForm("");
+		setFormTitleValueForm("")
+		setFormContentValueForm("");
+
+	}
+
+	const handleCreateNote = () => {
+		resetState();
+		handleShowModal();
+	}
+
 	const handleEdit = (id) => {
 		handleShowModal();
 		console.log(findNoteById(id).content);
@@ -75,11 +88,33 @@ function App() {
 			[field]: valueInputChanged,
 		}))
 	}
+
+	const handleSave = (id, titleFromModal, contentFromModal) => {
+		console.log(id);
+		if(id != ""){
+			return console.log("actualizar");
+		}else{
+			console.log("Agregar");
+			console.log(titleFromModal);
+			console.log(contentFromModal)
+			setNotesState(notesState => notesState.concat({
+				id: String(+new Date()),
+                title: titleFromModal,
+                lastEdited: String(+new Date()),
+                archived: false,
+                content: contentFromModal,
+                categories: ["random","amazing"]
+			}));
+			handleCloseModal();
+		};
+
+
+	}
 	
 	return (
 		<main>
 			<h2>Notes App</h2>
-			<Button onClick={handleShowModal} variant="primary">Create note</Button>
+			<Button onClick={handleCreateNote} variant="primary">Create note</Button>
 			<div className='mainContainer'>
 					{notesState.map( noteItem => {
 						return <NoteComponent 
@@ -100,9 +135,11 @@ function App() {
 			<ModalDialog 
 				show={showModal}
 				onClose={handleCloseModal}
+				onSave={handleSave}
 				id={formIdValueForm}
 				title={formTitleValueForm}
 				content={formContentValueForm}
+				
 
 			/>
 

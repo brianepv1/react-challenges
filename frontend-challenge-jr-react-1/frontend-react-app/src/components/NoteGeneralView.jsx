@@ -1,20 +1,12 @@
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const NoteGeneralView = ({id, title, date, archived, content}) => {
+const NoteGeneralView = ({id, title, date, archived, content, onTitleChange, onContentInput}) => {
+	
 	return (
-		<Form>
-			<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-				<Form.Label>Title address</Form.Label>
-				<Form.Control value={title} type="email" placeholder="name@example.com" />
-			</Form.Group>
-			<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-				<Form.Label>Content textarea</Form.Label>
-				{console.log(title)}
-				{console.log(content)}
-				<Form.Control value={content}as="textarea" rows={3} />
-			</Form.Group>
-		</Form>
+		<></>
 	);
 }
 

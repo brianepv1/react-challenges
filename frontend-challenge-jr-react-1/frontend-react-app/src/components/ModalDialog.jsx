@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import NoteGeneralView from './NoteGeneralView';
+import Form from 'react-bootstrap/Form';
+import NoteGeneralView from "./NoteGeneralView"
 
 //Modal Dialog component get show prop an this define if the modal is showing or no with true or false
 //Also moda receive a onHide with handleCloseModal function to change the state and close the modal
@@ -17,12 +18,25 @@ const ModalMessage = ({message, titleItem}) => {
 		
 	</>;
 }
-const ModalDialog = ({id, title, date, archived, content, messageBody, show, titleNote, onClose}) => {
-	const [formValues, setFormValues] = useState({val: "", content: ""});
 
-	const handleSubmit = () => {
-		console.log(this.state.val);
-	};
+const ModalDialog = ({id, title, date, archived, content, messageBody, show, titleNote, onClose, onSave}) => {
+	const [valueTitleInput, setValueTitleInput] = useState("");
+	const [valueContentInput, setValueContentInput] = useState("");
+
+
+
+	const handleTitleInput = (e) => {
+		setValueTitleInput(e.target.value);
+		console.log('title is:', e.target.value);
+    	return valueTitleInput;
+	}
+
+	const handleContentInput = (e) => {
+		setValueContentInput(e.target.value);
+    	console.log('content is:', e.target.value);
+		return valueContentInput;
+	}
+	
 	return(
 		<Modal show={show} onHide={onClose}>
 			<Modal.Header closeButton>
@@ -31,7 +45,18 @@ const ModalDialog = ({id, title, date, archived, content, messageBody, show, tit
 			<Modal.Body> 
 				{(messageBody != undefined)
 					? <ModalMessage message={messageBody} titleItem={titleNote}/>
-					: <NoteGeneralView title={title} content={content}/>
+					: <Form>
+						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+							<Form.Label>Title address</Form.Label>
+							<Form.Control value={valueTitleInput} onChange={handleTitleInput} type="email" placeholder="name@example.com" />
+						</Form.Group>
+						<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+							<Form.Label>Content textarea</Form.Label>
+							<Form.Control value={valueContentInput} onChange={handleContentInput} as="textarea" rows={3} />
+						</Form.Group>
+					</Form>
+						
+					
 				} 
 			</Modal.Body>
 
@@ -39,7 +64,7 @@ const ModalDialog = ({id, title, date, archived, content, messageBody, show, tit
 					<Button variant="secondary" onClick={onClose}>
 						Close
 					</Button>
-					<Button onClick={handleSubmit} variant="primary">
+					<Button onClick={() => onSave(id, valueTitleInput, valueContentInput)} variant="primary">
 						Save Changes
 					</Button>
 			</Modal.Footer>
