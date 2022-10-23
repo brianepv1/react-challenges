@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ModalDialog from './ModalDialog';
 
-const NoteComponent = ({id, title, date, archived, content, onArchive, onEdit, onDelete}) =>{
+const NoteComponent = ({id, title, date, archived, content, onArchive, onEdit, onDelete }) =>{
 	
 	
 	return (
@@ -31,7 +31,7 @@ const NoteComponent = ({id, title, date, archived, content, onArchive, onEdit, o
 							<Button onClick={() => onArchive(id)} variant="primary">Archive {String(archived)}</Button>
 						</Col>
 						<Col>
-							<Button onClick={() => onEdit(id)}variant="warning">Edit</Button>
+							<Button onClick={() => onEdit(id)} variant="warning">Edit</Button>
 						</Col>
 						<Col>
 							<Button onClick={ ()=> onDelete(id)} variant="danger">Delete</Button>

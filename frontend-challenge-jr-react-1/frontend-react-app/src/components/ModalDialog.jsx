@@ -19,9 +19,10 @@ const ModalMessage = ({message, titleItem}) => {
 	</>;
 }
 
-const ModalDialog = ({id, title, date, archived, content, messageBody, show, titleNote, onClose, onSave}) => {
+const ModalDialog = ({id, title, date, archived, content, messageBody, show, titleNote, onClose, onSave, onEdit, onDelete, deleteFlag}) => {
 	const [valueTitleInput, setValueTitleInput] = useState("");
 	const [valueContentInput, setValueContentInput] = useState("");
+
 
 
 
@@ -32,6 +33,7 @@ const ModalDialog = ({id, title, date, archived, content, messageBody, show, tit
 	}
 
 	const handleContentInput = (e) => {
+		isEdit();
 		setValueContentInput(e.target.value);
     	console.log('content is:', e.target.value);
 		return valueContentInput;
@@ -59,14 +61,22 @@ const ModalDialog = ({id, title, date, archived, content, messageBody, show, tit
 					
 				} 
 			</Modal.Body>
-
 				<Modal.Footer>
 					<Button variant="secondary" onClick={onClose}>
 						Close
 					</Button>
-					<Button onClick={() => onSave(id, valueTitleInput, valueContentInput)} variant="primary">
+					{(id == "" && !deleteFlag) && <Button onClick={() => onSave(id, valueTitleInput, valueContentInput)} variant="primary">
 						Save Changes
-					</Button>
+					</Button>}
+					{(deleteFlag) && <Button onClick={() => onDelete(id)} variant="danger">
+						Delete Changes
+					</Button>}
+					{(id) && <Button onClick={() => onSave(id, valueTitleInput, valueContentInput)} variant="warning">
+						Edit Changes
+					</Button>}
+					
+					
+					
 			</Modal.Footer>
 	  </Modal>
 	)

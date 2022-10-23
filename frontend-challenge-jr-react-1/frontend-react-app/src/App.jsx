@@ -15,6 +15,7 @@ function App() {
 	const [formIdValueForm , setFormIdValueForm] = useState("");
 	const [formTitleValueForm, setFormTitleValueForm ] = useState("");
 	const [formContentValueForm, setFormContentValueForm] = useState("");
+	const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
 	const inputTitleRef = useRef();
 	
@@ -73,20 +74,29 @@ function App() {
 
 	const handleEdit = (id) => {
 		handleShowModal();
-		console.log(findNoteById(id).content);
+		/*
+		console.log(findNoteById(id));
 		let idNote = findNoteById(id).id;
 		let titleNote = findNoteById(id).title;
 		let contentNote = findNoteById(id).content;
 		setFormIdValueForm(idNote);
 		setFormTitleValueForm(titleNote);
 		setFormContentValueForm(contentNote);
+		console.log(formIdValueForm);
+		*/
 	}
 
+	/*
 	const handleNoteChange = (formInputChanged, valueInputChanged) =>{
 		setDraftNote(() => ({
 			...draft,
 			[field]: valueInputChanged,
 		}))
+	}*/
+
+	const handleDelete = () => {
+		handleShowModal();
+		setDeleteConfirmation(true);
 	}
 
 	const handleSave = (id, titleFromModal, contentFromModal) => {
@@ -119,9 +129,8 @@ function App() {
 					{notesState.map( noteItem => {
 						return <NoteComponent 
 							onArchive={handleArchiveButton}
-							onDelete={handleDeleteButton}
+							onDelete={handleDelete}
 							onEdit={handleEdit}
-							onChange={handleNoteChange}
 							key={noteItem.id}
 							id={noteItem.id}
 							title={noteItem.title}
@@ -136,9 +145,12 @@ function App() {
 				show={showModal}
 				onClose={handleCloseModal}
 				onSave={handleSave}
+				onEdit={handleEdit}
+				onDelete={handleDeleteButton}
 				id={formIdValueForm}
 				title={formTitleValueForm}
 				content={formContentValueForm}
+				deleteFlag = {deleteConfirmation}
 				
 
 			/>
