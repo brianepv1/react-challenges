@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"><div class="user-card" data-user-id="123"><h1>Jane Doe</h1><p>Followers: <span id="followers-count">1450</span></p><button id="follow-button">Follow</button></div></div>
+    <script>
+      window.__INITIAL_DATA__ = {
+        id: 123,
+        name: 'Jane Doe',
+        initialFollowers: 1450,
+        isInitiallyFollowed: false
+      };
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+    
+  </body>
+</html>
