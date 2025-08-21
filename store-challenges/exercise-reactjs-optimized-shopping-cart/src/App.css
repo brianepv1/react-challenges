@@ -1,0 +1,173 @@
+/* Este contenedor ahora es solo un 'placeholder' para medir el ancho */
+/* No necesita ser grid */
+
+/* NUEVO: El estilo para cada fila que renderiza react-window */
+.product_row {
+    display: flex;
+    justify-content: center; /* O flex-start si prefieres */
+    gap: 16px;
+    padding: 0 16px 16px 16px; /* Añade padding abajo para separar las filas */
+    box-sizing: border-box;
+}
+
+/* Ajustado para funcionar dentro de una fila flexbox */
+.product_list_item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    
+    /* El ancho es ahora una fracción de la fila */
+    flex: 1; 
+    /* Y le damos un ancho base para el cálculo */
+    min-width: 250px;
+}
+
+.product_list_item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.product_list_item p {
+    font-weight: bold;
+    margin: 0;
+}
+
+.cart_link{
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+/* --- Estilos para la Vista del Carrito (Checkout) --- */
+
+/* Contenedor principal de la página del carrito */
+.cart_container {
+    max-width: 800px; /* Evita que sea demasiado ancho en pantallas grandes */
+    margin: 48px auto; /* Centra el contenedor y le da espacio vertical */
+    padding: 32px;
+    border: 1px solid #e0e0e0; /* Borde consistente con tus otros items */
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil para darle profundidad */
+}
+
+/* Título "Checkout" */
+.cart_container h2 {
+    font-size: 2.5rem; /* Título grande y claro */
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0; /* Línea separadora sutil */
+    padding-bottom: 16px;
+}
+
+/* Contenedor de la lista de productos (el <ul>) */
+.cart_list {
+    list-style: none; /* Quita los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Apila los items verticalmente */
+    gap: 16px; /* Espacio entre cada item del carrito */
+}
+
+/* Cada item individual en el carrito (el <li>) */
+.cart_item {
+    display: flex;
+    justify-content: space-between; /* Empuja el contenido a los extremos */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 16px 8px;
+    border-bottom: 1px solid #f0f0f0; /* Separador ligero entre items */
+}
+
+/* Quita el borde del último item para un look más limpio */
+.cart_item:last-child {
+    border-bottom: none;
+}
+
+/* Párrafos dentro de cada item del carrito */
+.cart_item p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Da más importancia al título del producto */
+.cart_item p:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Contenedor para la sección del precio total */
+.cart_total_section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #333; /* Separador fuerte para indicar el final */
+    text-align: right; /* Alinea el total a la derecha, como es común */
+}
+
+.cart_total_section p {
+    margin: 0;
+    font-size: 1.5rem; /* Total más grande */
+    font-weight: bold;
+    color: #333;
+}
+
+/* --- Estilos para el Formulario de Descuento --- */
+
+/* Contenedor del formulario */
+.coupon_form {
+    display: flex; /* Alinea el input y el botón horizontalmente */
+    gap: 8px; /* Pequeño espacio entre el input y el botón */
+    margin-top: 24px; /* Espacio arriba para separarlo de la lista de items */
+    margin-bottom: 24px; /* Espacio abajo para separarlo del total */
+}
+
+/* Estilo del campo de texto (input) */
+.coupon_form input[type="text"] {
+    flex-grow: 1; /* Hace que el input ocupe todo el espacio disponible */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transición suave */
+}
+
+/* Estilo del input cuando está seleccionado (en foco) */
+.coupon_form input[type="text"]:focus {
+    outline: none; /* Quita el borde por defecto del navegador */
+    border-color: #007bff; /* Color de borde azul para indicar foco */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Sombra exterior sutil */
+}
+
+/* Estilo del botón */
+.coupon_form button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333; /* Color de fondo oscuro y sólido */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Transición suave */
+    white-space: nowrap; /* Evita que el texto del botón se rompa en dos líneas */
+}
+
+/* Efecto al pasar el ratón por encima del botón */
+.coupon_form button:hover {
+    background-color: #555;
+}
+
+/* Efecto al hacer clic en el botón */
+.coupon_form button:active {
+    transform: scale(0.98); /* Efecto de "presionado" */
+}
