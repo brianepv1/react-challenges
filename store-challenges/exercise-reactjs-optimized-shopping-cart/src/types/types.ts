@@ -36,7 +36,7 @@ export type CartState = {
         status: boolean,
         type: string
         value: number
-    } | null
+    } 
 }
 
 
